@@ -2,6 +2,7 @@
   <div class="recommandBar">
     <span class="icon-check_circle"></span>
     <span class="text">{{title}}</span>
+    <span class="desc">{{desc}}</span>
   </div>
 </template>
 
@@ -15,6 +16,9 @@
         iconName: {
           type: String,
           required: false
+        },
+        desc: {
+          type: String
         }
       }
     };
@@ -34,4 +38,8 @@
       margin-right :4px;
     .text
       font-size :12px;
+      color: #000;
+    .desc
+      font-size: 12px;
+      float: right;
 </style>
