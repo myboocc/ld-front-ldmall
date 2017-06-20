@@ -103,12 +103,17 @@
           loading: true
         };
       },
+      ready() {
+        console.log('aaa');
+        this._initScroll();
+      },
       created() {
         this.$http.get('/api/carousel').then((response) => {
           response = response.body;
           if(response.errno === ERR_OK ){
             this.pics = response.data.pics;
             this.loading = false;
+            console.log('bbb');
           }
         });
       },
@@ -126,6 +131,7 @@
       events: {
         'wiper.ok'() {
           this._initScroll();
+          console.log('ccc');
         }
       },
       components: {

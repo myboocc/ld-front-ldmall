@@ -44,11 +44,12 @@
 #app .tab{
   position: fixed;
   left: 0;
-  bottom: 0;
+  bottom: -100%;
   z-index: 200;
 	width: 100%;
 	height: 50px;
   border-top: 1px solid rgba(7,17,27,0.1);
+  transition: all 0.5s;
 }
 #app .tab .tab-bar{
   width: 100%;

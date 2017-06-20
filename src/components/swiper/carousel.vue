@@ -1,9 +1,10 @@
 <template>
-  <div class="swiper-container appSwiper" >
-    <div class="swiper-wrapper">
-      <div class="swiper-slide" v-for="item in list" >
-        <a href="javascript:void(0)"><img :src="item" :style="{height: height}"></a>
-      </div>
+  <div class="swiper-container appSwiper">
+    <div class="swiper-wrapper" :style="{height: swiperHeight}">
+      <!--<div class="swiper-slide" v-for="item in list" >-->
+        <!--<a href="javascript:void(0)"><img :src="item"></a>-->
+      <!--</div>-->
+      <a href="javascript:void(0)" class="swiper-slide" v-for="item in list" :style="{backgroundImage: buildBackgroundUrl(item),height: swiperHeight}"></a>
     </div>
     <div class="swiper-pagination" :class="classpage"  v-if="showpage"></div>
   </div>
@@ -17,6 +18,7 @@
         let _this = this;
         if (!(_this.list && _this.list.length === 0)) {
           _this.renderSwiper();
+          console.log('ddd');
           this.$dispatch('wiper.ok');
         }
       },
@@ -37,6 +39,12 @@
             pagination: '.swiper-pagination',
             paginationClickable: true
           });
+        }
+      },
+      computed: {
+        swiperHeight() {
+          console.log(this.height);
+          return this.height + 'px';
         }
       },
       props: {
@@ -68,11 +76,11 @@
           type: Boolean,
           default: true
         },
-        classpage: String,
         height: {
-          type: String,
-          default: '200px'
-        }
+          type: Number,
+          default: window.innerHeight
+        },
+        classpage: String
       },
       watch: {
         list: function (val) {

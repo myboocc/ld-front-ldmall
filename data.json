@@ -50,11 +50,12 @@
   },
   "carousel": {
     "pics": [
-      "http://pic.mdcdn.cn/h5/pic/201706/f6a976cc1a4d.png?x-oss-process=image/format,webp/quality,Q_90&@100Q.png",
-      "http://pic.mdcdn.cn/h5/pic/201706/acaca8450ab7.png?x-oss-process=image/format,webp/quality,Q_90&@100Q.png",
-      "http://pic.mdcdn.cn/h5/pic/201706/f20f0df480a3.png?x-oss-process=image/format,webp/quality,Q_90&@100Q.png",
-      "http://pic.mdcdn.cn/h5/pic/201706/ee4c1da35e87.png?x-oss-process=image/format,webp/quality,Q_90&@100Q.png",
-      "http://pic.mdcdn.cn/h5/pic/201706/7efe1d07f8aa.png?x-oss-process=image/format,webp/quality,Q_90&@100Q.png"
+      "http://img.hb.aicdn.com/dbffb0303da0ada25a0e5b536c1c54c6221dc75eb5dc6-I4rQjD_fw658",
+      "http://img.hb.aicdn.com/94f00227d6afb11eb2aa6eb7987d0702ca86d5558ddc9-L86Ydy_fw658",
+      "http://img.hb.aicdn.com/a3a1abdfbf1e3c1c48e5f5b30b34f018d796166d7b70b-sUTbOq_fw658",
+      "http://img.hb.aicdn.com/f5527e59e19d7b22b0fbfa53af2f47b9879ec2af81c6c-1J7hoa_fw658",
+      "http://img.hb.aicdn.com/25ef5d96eea7ddc9237cc7921395049561b0a6eb5d60f-b33fi5_fw658",
+      "http://img.hb.aicdn.com/389ffaf222319d68040c3a42dfa7c380c09784a485b63-x1p8P9_fw658"
     ]
   },
   "goods": [
