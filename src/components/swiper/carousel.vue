@@ -17,6 +17,7 @@
         let _this = this;
         if (!(_this.list && _this.list.length === 0)) {
           _this.renderSwiper();
+          this.$dispatch('wiper.ok');
         }
       },
       methods: {
