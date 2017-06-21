@@ -2,7 +2,7 @@
   <div class="home" v-el:home-wrapper>
     <div class="homeContent">
       <!-- 轮播广告 -->
-      <v-carousel id="swiperView" classpage="app-pagination" :list="pics" v-if="!loading"></v-carousel>
+      <v-carousel id="swiperView" classpage="app-pagination" :list="pics"></v-carousel>
 
 
       <recommand-bar :title="recommandTitle" :iconName="" :desc="desc"></recommand-bar>
@@ -12,7 +12,7 @@
         <ul class="item-list">
           <li class="item">
             <div class="pic">
-              <img src="https://pic.mdcdn.cn/h5/pic/201704/de80d1378a29.jpg?x-oss-process=image/format,webp/quality,Q_90&@100Q.jpg">
+              <img src="https://img.alicdn.com/imgextra/i2/1078291725/TB2eSGLybBnpuFjSZFGXXX51pXa_!!1078291725.jpg">
               <div class="sku-tag sku_tag_important">520美粉节</div>
             </div>
             <div class="info">
@@ -34,7 +34,7 @@
           <split></split>
           <li class="item">
             <div class="pic">
-              <img src="https://pic.mdcdn.cn/h5/pic/201704/de80d1378a29.jpg?x-oss-process=image/format,webp/quality,Q_90&@100Q.jpg">
+              <img src="https://img.alicdn.com/imgextra/i2/1078291725/TB2eSGLybBnpuFjSZFGXXX51pXa_!!1078291725.jpg">
               <div class="sku-tag sku_tag_important">520美粉节</div>
             </div>
             <div class="info">
@@ -56,7 +56,7 @@
           <split></split>
           <li class="item">
             <div class="pic">
-              <img src="https://pic.mdcdn.cn/h5/pic/201704/de80d1378a29.jpg?x-oss-process=image/format,webp/quality,Q_90&@100Q.jpg">
+              <img src="https://img.alicdn.com/imgextra/i2/1078291725/TB2eSGLybBnpuFjSZFGXXX51pXa_!!1078291725.jpg">
               <div class="sku-tag sku_tag_important">520美粉节</div>
             </div>
             <div class="info">
@@ -81,16 +81,16 @@
     </div>
   </div>
   <!-- Loading -->
-  <Loading :show="loading"></Loading>
+  <!--<Loading :show="loading"></Loading>-->
 
 </template>
 
 <script type="text/ecmascript-6">
+    import BScroll from 'better-scroll';
     import split from 'components/split/split';
-    import Loading from 'components/loading/Loading';
+//    import Loading from 'components/loading/Loading';
     import carousel from 'components/swiper/carousel';
     import recommandBar from 'components/recommandBar/recommandBar';
-    import BScroll from 'better-scroll';
 
     const ERR_OK = 0;
 
@@ -108,12 +108,16 @@
         this._initScroll();
       },
       created() {
-        this.$http.get('/api/carousel').then((response) => {
+        this.$http.get('/api/seller').then((response) => {
           response = response.body;
           if(response.errno === ERR_OK ){
-            this.pics = response.data.pics;
-            this.loading = false;
+            this.pics = response.data.pics2;
+//            this.loading = false;
             console.log('bbb');
+            this.$nextTick(() => {
+              this.scroll.refresh();
+              console.log('ccc');
+            });
           }
         });
       },
@@ -130,14 +134,16 @@
       },
       events: {
         'wiper.ok'() {
-          this._initScroll();
-          console.log('ccc');
+          this.$nextTick(() => {
+            this.scroll.refresh();
+            console.log('ccc');
+          });
         }
       },
       components: {
         'v-carousel': carousel,
         split,
-        Loading,
+//        Loading,
         'recommand-bar': recommandBar
       }
     };
@@ -156,9 +162,12 @@
       margin: 0 2px !important;
   .home
     position: absolute;
+    /*top: 0;*/
+    /*bottom: 50px;*/
+    left: 0;
     top: 0;
-    bottom: 50px;
     width: 100%;
+    height:100%;
     overflow: hidden;
     .recommand_wrapper
       .item
