@@ -16,7 +16,7 @@
     export default {
       ready(){
         let _this = this;
-        if (!(_this.list && _this.list.length === 0)) {
+        if (_this.list && _this.list.length > 0) {
           _this.renderSwiper();
           console.log('ddd');
           this.$dispatch('wiper.ok');
@@ -43,7 +43,6 @@
       },
       computed: {
         swiperHeight() {
-          console.log(this.height);
           return this.height + 'px';
         }
       },
@@ -85,6 +84,8 @@
       watch: {
         list: function (val) {
           this.renderSwiper();
+          console.log('ddd----');
+          this.$dispatch('wiper.ok');
         }
       }
     };

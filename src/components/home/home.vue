@@ -116,7 +116,7 @@
             console.log('bbb');
             this.$nextTick(() => {
               this.scroll.refresh();
-              console.log('ccc');
+              console.log('ccc++');
             });
           }
         });
