@@ -16,10 +16,11 @@
     export default {
       ready(){
         let _this = this;
-        if (_this.list && _this.list.length > 0) {
+        console.log('+++ddd');
+//        if (_this.list && _this.list.length > 0) {
+        if (!(_this.list && _this.list.length === 0)) {
           _this.renderSwiper();
           console.log('ddd');
-          this.$dispatch('wiper.ok');
         }
       },
       methods: {
@@ -37,7 +38,11 @@
             loop: _this.loop,
             autoplayDisableOnInteraction: _this.autoplayDisableOnInteraction,
             pagination: '.swiper-pagination',
-            paginationClickable: true
+            paginationClickable: true,
+            onInit: function () {
+              _this.$dispatch('wiper.ok', 'onInit li de');
+//              window.alert('123123');
+            }
           });
         }
       },
@@ -85,7 +90,9 @@
         list: function (val) {
           this.renderSwiper();
           console.log('ddd----');
-          this.$dispatch('wiper.ok');
+          this.$nextTick(() => {
+            this.$dispatch('wiper.ok', 'watch li de');
+          });
         }
       }
     };

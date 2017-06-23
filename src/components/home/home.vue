@@ -1,9 +1,10 @@
 <template>
-  <div class="home" v-el:home-wrapper>
+  <div class="home" :class="{'bottom50':bottom50}" v-el:home-wrapper>
     <div class="homeContent">
       <!-- 轮播广告 -->
-      <v-carousel id="swiperView" classpage="app-pagination" :list="pics"></v-carousel>
-
+      <div class="carousel" :style="{height: _carouselHeight}">
+        <v-carousel id="swiperView" classpage="app-pagination" :list="pics"></v-carousel>
+      </div>
 
       <recommand-bar :title="recommandTitle" :iconName="" :desc="desc"></recommand-bar>
       <!--<split></split>-->
@@ -76,6 +77,7 @@
             </div>
           </li>
         </ul>
+        <div class="bottomZone" v-show="bottom50">aaaa</div>
       </div>
 
     </div>
@@ -93,6 +95,7 @@
     import recommandBar from 'components/recommandBar/recommandBar';
 
     const ERR_OK = 0;
+    const SCROLL_TOP = 100;
 
     export default {
       data() {
@@ -100,12 +103,31 @@
           pics: [],
           recommandTitle: '人气推荐',
           desc: '明星商品 为您精选',
-          loading: true
+          loading: true,
+          bottom50: false,
+          scrollY: 0,
+          carouselHeight: 0,
+          carHeight: window.innerHeight
         };
       },
       ready() {
         console.log('aaa');
         this._initScroll();
+        this.scroll.on('scroll', (pos) => {
+          this.scrollY = Math.abs(Math.round(pos.y));
+//          console.log(this.scrollY);
+          if(this.scrollY > SCROLL_TOP){
+//            this.$dispatch('show.tab', true);
+            this.bottom50 = true;
+          }else if(this.scrollY < SCROLL_TOP){
+            this.$dispatch('show.tab', false);
+            this.bottom50 = false;
+          }
+        });
+        let self = this;
+        setTimeout(function () {
+          self._initScroll();
+        }, 300);
       },
       created() {
         this.$http.get('/api/seller').then((response) => {
@@ -115,28 +137,39 @@
 //            this.loading = false;
             console.log('bbb');
             this.$nextTick(() => {
-              this.scroll.refresh();
+              this.scroll = new BScroll(this.$els.homeWrapper, {
+                probeType: 3,
+                click: true
+              });
               console.log('ccc++');
             });
           }
         });
       },
+      computed: {
+        _carouselHeight() {
+          return this.carHeight + 'px';
+        }
+      },
       methods: {
         _initScroll() {
           if(!this.scroll){
             this.scroll = new BScroll(this.$els.homeWrapper, {
+              probeType: 3,
               click: true
             });
+            console.log('执行创建，，，');
           }else{
             this.scroll.refresh();
+            console.log('执行刷新，，，。。。');
           }
         }
       },
       events: {
-        'wiper.ok'() {
+        'wiper.ok'(args) {
           this.$nextTick(() => {
-            this.scroll.refresh();
-            console.log('ccc');
+            console.log('ccc' + args);
+            this._initScroll();
           });
         }
       },
@@ -162,13 +195,17 @@
       margin: 0 2px !important;
   .home
     position: absolute;
-    /*top: 0;*/
-    /*bottom: 50px;*/
-    left: 0;
     top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     width: 100%;
-    height:100%;
+    /*height:100%;*/
     overflow: hidden;
+    &.bottom50
+      bottom: 50px;
+    .carousel
+      width: 100%;
     .recommand_wrapper
       .item
         position: relative;
@@ -246,4 +283,8 @@
                 &.icon-collect
                   margin-top: 3px;
                   background-position: -60px 0;
+      .bottomZone
+        width: 100%;
+        height: 50px;
+        line-height :50px;
 </style>
