@@ -5,6 +5,7 @@
       <div class="carousel" :style="{height: _carouselHeight}">
         <v-carousel id="swiperView" classpage="app-pagination" :list="pics"></v-carousel>
       </div>
+      <!--<div style="width: 100%;height: 660px;"></div>-->
 
       <recommand-bar :title="recommandTitle" :iconName="" :desc="desc"></recommand-bar>
       <!--<split></split>-->
@@ -77,7 +78,7 @@
             </div>
           </li>
         </ul>
-        <div class="bottomZone" v-show="bottom50">aaaa</div>
+        <div class="bottomZone"></div>
       </div>
 
     </div>
@@ -107,7 +108,7 @@
           bottom50: false,
           scrollY: 0,
           carouselHeight: 0,
-          carHeight: window.innerHeight
+          carHeight: 0
         };
       },
       ready() {
@@ -117,7 +118,7 @@
           this.scrollY = Math.abs(Math.round(pos.y));
 //          console.log(this.scrollY);
           if(this.scrollY > SCROLL_TOP){
-//            this.$dispatch('show.tab', true);
+            this.$dispatch('show.tab', true);
             this.bottom50 = true;
           }else if(this.scrollY < SCROLL_TOP){
             this.$dispatch('show.tab', false);
@@ -137,10 +138,10 @@
 //            this.loading = false;
             console.log('bbb');
             this.$nextTick(() => {
-              this.scroll = new BScroll(this.$els.homeWrapper, {
-                probeType: 3,
-                click: true
-              });
+//              this.scroll = new BScroll(this.$els.homeWrapper, {
+//                probeType: 3,
+//                click: true
+//              });
               console.log('ccc++');
             });
           }
@@ -148,6 +149,7 @@
       },
       computed: {
         _carouselHeight() {
+          this.carHeight = window.innerHeight;
           return this.carHeight + 'px';
         }
       },
@@ -163,12 +165,24 @@
             this.scroll.refresh();
             console.log('执行刷新，，，。。。');
           }
+        },
+        carouselHeight() {
+          return this.carHeight + 'px';
         }
       },
       events: {
         'wiper.ok'(args) {
           this.$nextTick(() => {
             console.log('ccc' + args);
+            this._initScroll();
+          });
+        }
+      },
+      watch: {
+        'carHeight'() {
+          console.log('bian le');
+          console.log(this.carHeight);
+          this.$nextTick(() => {
             this._initScroll();
           });
         }
@@ -202,6 +216,7 @@
     width: 100%;
     /*height:100%;*/
     overflow: hidden;
+    transition: bottom 0.5s;
     &.bottom50
       bottom: 50px;
     .carousel

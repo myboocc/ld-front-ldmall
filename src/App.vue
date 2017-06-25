@@ -11,18 +11,22 @@
           <span class="icon-home"></span>
         </div>
         <div class="navList">
-          <span class="icon icon-shopping_cart"></span>
-          <span class="text">产品种类</span>
-          <ul class="subNavWrapper" v-show="isShowSubNav">
+          <div @click.stop.prevent="toggleProductNav">
+            <span class="icon icon-shopping_cart"></span>
+            <span class="text">产品种类</span>
+          </div>
+          <ul class="subNavWrapper" v-show="isShowProductSubNav" transition="fade">
             <li v-for="item in productSeries" class="navItem">
               <a href="{{item.href}}">{{item}}</a>
             </li>
           </ul>
         </div>
         <div class="navList">
-          <span class="icon icon-user"></span>
-          <span class="text">我的LD</span>
-          <ul class="subNavWrapper" v-show="isShowSubNav">
+          <div @click.stop.prevent="toggleMyNav">
+            <span class="icon icon-user"></span>
+            <span class="text">我的LD</span>
+          </div>
+          <ul class="subNavWrapper" v-show="isShowMySubNav" transition="fade">
             <li v-for="item in myNavs" class="navItem">
               <a href="{{item.href}}">{{item}}</a>
             </li>
@@ -40,9 +44,20 @@
       return {
         productSeries: ['家居护理', '精油香氛', '精美蜡烛', '个人护理'],
         myNavs: ['购物车', '我的订单', '举手发问'],
-        isShowSubNav: false,
+        isShowProductSubNav: false,
+        isShowMySubNav: false,
         isShowTab: false
       };
+    },
+    methods: {
+      toggleProductNav() {
+        this.isShowProductSubNav = !this.isShowProductSubNav;
+        this.isShowMySubNav = this.isShowMySubNav === true ? !this.isShowMySubNav : this.isShowMySubNav;
+      },
+      toggleMyNav() {
+        this.isShowMySubNav = !this.isShowMySubNav;
+        this.isShowProductSubNav = this.isShowProductSubNav === true ? !this.isShowProductSubNav : this.isShowProductSubNav;
+      }
     },
     events: {
       'show.tab'(args) {
@@ -73,7 +88,7 @@
 	height: 50px;
   background: rgb(250,250,250);
   border-top: 1px solid rgba(7,17,27,0.1);
-  transition: all 0.5s;
+  transition: bottom 0.5s;
 }
 .tab.fade-transition{
   bottom: 0;
@@ -111,7 +126,7 @@
 }
 .tab .tab-bar .navList .subNavWrapper{
   position: absolute;
-  bottom: 65px;
+  bottom: 60px;
   left: 0;
   width: 100%;
   background: #fafafa;
@@ -119,7 +134,19 @@
   border-radius: 5px;
   line-height: 43px;
   z-index: 100;
+  transition: all 0.3s;
 }
+/*动画效果*/
+.tab .tab-bar .navList .subNavWrapper.fade-transition{
+  bottom: 65px;
+  opacity: 1;
+}
+.tab .tab-bar .navList .subNavWrapper.fade-enter,
+.tab .tab-bar .navList .subNavWrapper.fade-leave{
+  bottom: 60%;
+  opacity: 0;
+}
+
 .tab .tab-bar .navList .subNavWrapper .navItem{
   padding: 0 8px;
   line-height: 43px;
