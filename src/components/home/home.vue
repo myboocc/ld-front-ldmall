@@ -12,6 +12,30 @@
       <!-- 产品列表 -->
       <div class="recommand_wrapper">
         <ul class="item-list">
+          <li class="item" v-for="item in goods">
+            <div class="pic">
+              <img :src="item.image">
+              <div class="sku-tag sku_tag_important" v-show="item.sku-tag">{{item.sku-tag}}</div>
+            </div>
+            <div class="info">
+              <div class="title">{{item.title}}</div>
+              <div class="sub-title">
+                <span class="pre_sell" v-show="item.pre-sell && item.pre-sell === true">[预售]</span> {{item.sub-title}}
+              </div>
+              <div class="price-info clearfix">
+                <div class="price">
+                  ¥&nbsp;<em>{{item.price}}</em>
+                </div>
+                <div class="collect">
+                  <i class="icon-index icon-collect"></i>
+                  <span class="collect-count">{{item.collectCount}}</span>
+                </div>
+              </div>
+            </div>
+            <split v-show="$index != goods.length-1"></split>
+          </li>
+
+          <!--
           <li class="item">
             <div class="pic">
               <img src="https://img.alicdn.com/imgextra/i2/1078291725/TB2eSGLybBnpuFjSZFGXXX51pXa_!!1078291725.jpg">
@@ -55,28 +79,7 @@
               </div>
             </div>
           </li>
-          <split></split>
-          <li class="item">
-            <div class="pic">
-              <img src="https://img.alicdn.com/imgextra/i2/1078291725/TB2eSGLybBnpuFjSZFGXXX51pXa_!!1078291725.jpg">
-              <div class="sku-tag sku_tag_important">520美粉节</div>
-            </div>
-            <div class="info">
-              <div class="title">双温除菌，美的生活从洁净开始</div>
-              <div class="sub-title">
-                <span class="pre_sell">[预售]</span> 洗衣机MG90V130WDX
-              </div>
-              <div class="price-info clearfix">
-                <div class="price">
-                  ¥&nbsp;<em>2498.00</em>
-                </div>
-                <div class="collect">
-                  <i class="icon-index icon-collect"></i>
-                  <span class="collect-count">109</span>
-                </div>
-              </div>
-            </div>
-          </li>
+          -->
         </ul>
         <div class="bottomZone"></div>
       </div>
@@ -102,6 +105,7 @@
       data() {
         return {
           pics: [],
+          goods: [],
           recommandTitle: '人气推荐',
           desc: '明星商品 为您精选',
           loading: true,
@@ -135,6 +139,7 @@
           response = response.body;
           if(response.errno === ERR_OK ){
             this.pics = response.data.pics2;
+            this.goods = response.data.goods;
 //            this.loading = false;
             console.log('bbb');
             this.$nextTick(() => {
