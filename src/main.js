@@ -5,6 +5,7 @@ import App from './App';
 import home from 'components/home/home';
 import ratingMode from 'components/ratingMode/ratingMode';
 import seller from 'components/seller/seller';
+import series from 'components/seriesTemplate/seriesTemplate';
 
 import 'common/stylus/index.css';
 import 'common/stylus/index.styl';
@@ -28,6 +29,9 @@ router.map({
 	},
   '/seller': {
     component: seller
+  },
+  '/series': {
+    component: series
   }
 });
 

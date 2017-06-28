@@ -6,6 +6,10 @@
         <v-carousel id="swiperView" classpage="app-pagination" :list="pics"></v-carousel>
       </div>
       <!--<div style="width: 100%;height: 660px;"></div>-->
+      <!--广告区域-->
+      <div class="adWrapper">
+        <img :src="adPic" width="100%" height="auto">
+      </div>
 
       <recommand-bar :title="recommandTitle" :iconName="" :desc="desc"></recommand-bar>
       <!--<split></split>-->
@@ -20,7 +24,7 @@
             <div class="info">
               <div class="title">{{item.title}}</div>
               <div class="sub-title">
-                <span class="pre_sell" v-show="item.pre-sell && item.pre-sell === true">[预售]</span> {{item.sub-title}}
+                <span class="pre_sell" v-show="item.preSell && item.preSell === true">[预售]</span> {{item.subTitle}}
               </div>
               <div class="price-info clearfix">
                 <div class="price">
@@ -34,52 +38,6 @@
             </div>
             <split v-show="$index != goods.length-1"></split>
           </li>
-
-          <!--
-          <li class="item">
-            <div class="pic">
-              <img src="https://img.alicdn.com/imgextra/i2/1078291725/TB2eSGLybBnpuFjSZFGXXX51pXa_!!1078291725.jpg">
-              <div class="sku-tag sku_tag_important">520美粉节</div>
-            </div>
-            <div class="info">
-              <div class="title">双温除菌，美的生活从洁净开始</div>
-              <div class="sub-title">
-                <span class="pre_sell">[预售]</span> 洗衣机MG90V130WDX
-              </div>
-              <div class="price-info clearfix">
-                <div class="price">
-                  ¥&nbsp;<em>2498.00</em>
-                </div>
-                <div class="collect">
-                  <i class="icon-index icon-collect"></i>
-                  <span class="collect-count">109</span>
-                </div>
-              </div>
-            </div>
-          </li>
-          <split></split>
-          <li class="item">
-            <div class="pic">
-              <img src="https://img.alicdn.com/imgextra/i2/1078291725/TB2eSGLybBnpuFjSZFGXXX51pXa_!!1078291725.jpg">
-              <div class="sku-tag sku_tag_important">520美粉节</div>
-            </div>
-            <div class="info">
-              <div class="title">双温除菌，美的生活从洁净开始</div>
-              <div class="sub-title">
-                <span class="pre_sell">[预售]</span> 洗衣机MG90V130WDX
-              </div>
-              <div class="price-info clearfix">
-                <div class="price">
-                  ¥&nbsp;<em>2498.00</em>
-                </div>
-                <div class="collect">
-                  <i class="icon-index icon-collect"></i>
-                  <span class="collect-count">109</span>
-                </div>
-              </div>
-            </div>
-          </li>
-          -->
         </ul>
         <div class="bottomZone"></div>
       </div>
@@ -104,6 +62,7 @@
     export default {
       data() {
         return {
+          adPic: '',
           pics: [],
           goods: [],
           recommandTitle: '人气推荐',
@@ -138,6 +97,7 @@
         this.$http.get('/api/seller').then((response) => {
           response = response.body;
           if(response.errno === ERR_OK ){
+            this.adPic = response.data.adPic;
             this.pics = response.data.pics2;
             this.goods = response.data.goods;
 //            this.loading = false;
