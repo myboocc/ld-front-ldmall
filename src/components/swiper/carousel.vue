@@ -1,10 +1,10 @@
 <template>
   <div class="swiper-container appSwiper">
-    <div class="swiper-wrapper" :style="{height: swiperHeight}">
-      <!--<div class="swiper-slide" v-for="item in list" >-->
-        <!--<a href="javascript:void(0)"><img :src="item"></a>-->
-      <!--</div>-->
-      <a href="javascript:void(0)" class="swiper-slide" v-for="item in list" :style="{backgroundImage: buildBackgroundUrl(item),height: swiperHeight}"></a>
+    <div class="swiper-wrapper">
+      <div v-if="isDetail" class="swiper-slide" v-for="item in list">
+        <a href="javascript:void(0)"><img :src="item"></a>
+      </div>
+      <a v-if="!isDetail" href="javascript:void(0)" class="swiper-slide" v-for="item in list" :style="{backgroundImage: buildBackgroundUrl(item),height: swiperHeight}"></a>
     </div>
     <div class="swiper-pagination" :class="classpage"  v-if="showpage"></div>
   </div>
@@ -52,6 +52,10 @@
         }
       },
       props: {
+        isDetail: {
+          type: Boolean,
+          default: false
+        },
         list: {
           type: Array,
           required: false
@@ -87,12 +91,15 @@
         classpage: String
       },
       watch: {
-        list: function (val) {
+        'list' (val) {
           this.renderSwiper();
           console.log('ddd----');
           this.$nextTick(() => {
             this.$dispatch('wiper.ok', 'watch li de');
           });
+        },
+        'isDetail' () {
+          this.renderSwiper();
         }
       }
     };

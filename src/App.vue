@@ -3,7 +3,7 @@
     <!-- 搜索区域 -->
 
 
-    <router-view keep-alive></router-view>
+    <router-view keep-alive :product=""></router-view>
 
     <div class="tab border-1px" v-show="isShowTab" transition="fade">
       <div class="tab-bar">

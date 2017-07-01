@@ -6,6 +6,7 @@ import home from 'components/home/home';
 import ratingMode from 'components/ratingMode/ratingMode';
 import seller from 'components/seller/seller';
 import series from 'components/seriesTemplate/seriesTemplate';
+import product from 'components/product/product';
 
 import 'common/stylus/index.css';
 import 'common/stylus/index.styl';
@@ -32,7 +33,14 @@ router.map({
   },
   '/series': {
     component: series
+  },
+  '/product': {
+    component: product
   }
+  // '/product/:selectProduct': {
+  //   name: 'product',
+  //   component: product
+  // }
 });
 
 router.start(app, '#app');

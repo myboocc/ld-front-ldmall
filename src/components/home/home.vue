@@ -1,5 +1,5 @@
 <template>
-  <div class="home" :class="{'bottom50':bottom50}" v-el:home-wrapper>
+  <div class="home" :class="{'bottom50':bottom50}" v-el:home-wrapper transition="fadeOutLeft">
     <div class="homeContent">
       <!-- 轮播广告 -->
       <div class="carousel" :style="{height: _carouselHeight}">
@@ -11,12 +11,12 @@
         <img :src="adPic" width="100%" height="auto">
       </div>
 
-      <recommand-bar :title="recommandTitle" :iconName="" :desc="desc"></recommand-bar>
+      <recommand-bar :title="recommandTitle" :iconName="" :desc="desc" :isDetail="false"></recommand-bar>
       <!--<split></split>-->
-      <!-- 产品列表 -->
+      <!-- 产品列表v-link="{path:'/series'}"@click="selectProduct(item,$event)" v-link="{ name: 'product', params: { selectProduct: item }}"-->
       <div class="recommand_wrapper">
         <ul class="item-list">
-          <li class="item" v-for="item in goods">
+          <li class="item" v-for="item in goods" v-link="{ path: '/product', query: { selectProduct: item.price }}">
             <div class="pic">
               <img :src="item.image">
               <div class="sku-tag sku_tag_important" v-show="item.sku-tag">{{item.sku-tag}}</div>
@@ -43,10 +43,12 @@
       </div>
 
     </div>
+
+    <!--<product :product="selectedProduct" v-ref:product></product>-->
+
   </div>
   <!-- Loading -->
   <!--<Loading :show="loading"></Loading>-->
-
 </template>
 
 <script type="text/ecmascript-6">
@@ -55,6 +57,7 @@
 //    import Loading from 'components/loading/Loading';
     import carousel from 'components/swiper/carousel';
     import recommandBar from 'components/recommandBar/recommandBar';
+    import product from 'components/product/product';
 
     const ERR_OK = 0;
     const SCROLL_TOP = 100;
@@ -71,7 +74,8 @@
           bottom50: false,
           scrollY: 0,
           carouselHeight: 0,
-          carHeight: 0
+          carHeight: 0,
+          selectedProduct: {}
         };
       },
       ready() {
@@ -133,6 +137,13 @@
         },
         carouselHeight() {
           return this.carHeight + 'px';
+        },
+        selectProduct(product, event) {
+          if(!event._constructed){
+            return;
+          }
+          this.selectedProduct = product;
+          this.$refs.product.show();
         }
       },
       events: {
@@ -156,6 +167,7 @@
         'v-carousel': carousel,
         split,
 //        Loading,
+        product,
         'recommand-bar': recommandBar
       }
     };
