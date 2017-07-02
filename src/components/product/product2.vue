@@ -19,29 +19,29 @@
     <!--</div>-->
   <!--</div>-->
 
-  <div  class="product" transition="fadeInLeft" v-el:product>
-    <div class="productContent">
-      <!--轮播图-->
-      <d-carousel v-if="productPics.length" classpage="app-pagination" :list="productPics"></d-carousel>
-    </div>
-    <a>{{product}}</a>
-  </div>
   <!--<div  class="product" transition="fadeInLeft" v-el:product>-->
     <!--<div class="productContent">-->
-      <!--<p>asjkldsajl</p>-->
       <!--&lt;!&ndash;轮播图&ndash;&gt;-->
-      <!--<div v-if="recommends.length" class="slider-wrapper">-->
-        <!--<slider>-->
-          <!--<div v-for="item in recommends">-->
-            <!--<a :href="item">-->
-              <!--<img :src="item">-->
-            <!--</a>-->
-          <!--</div>-->
-        <!--</slider>-->
-      <!--</div>-->
+      <!--<d-carousel v-show="showCarousel" classpage="app-pagination" :list="productPics"></d-carousel>-->
     <!--</div>-->
     <!--<a>{{product}}</a>-->
   <!--</div>-->
+  <div  class="product" transition="fadeInLeft" v-el:product>
+    <div class="productContent">
+      <p>asjkldsajl</p>
+      <!--轮播图-->
+      <div v-if="recommends.length" class="slider-wrapper">
+        <slider>
+          <div v-for="item in recommends">
+            <a :href="item">
+              <img :src="item">
+            </a>
+          </div>
+        </slider>
+      </div>
+    </div>
+    <a>{{product}}</a>
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
@@ -65,8 +65,8 @@
       };
     },
     created() {
-      this.fetchProduct(this.$route.query.productId);
-//      this._getRecommend();
+//      this.fetchProduct(this.$route.query.productId);
+      this._getRecommend();
     },
     route: {
       activate() {
@@ -128,7 +128,7 @@
                 console.log('找到匹配到的数据了');
                 console.log(this.productPics);
                 transition.next();
-                return;
+//                return;
               }
 //              console.log(product);
             });

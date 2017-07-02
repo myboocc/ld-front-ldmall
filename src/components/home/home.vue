@@ -16,7 +16,7 @@
       <!-- 产品列表v-link="{path:'/series'}"@click="selectProduct(item,$event)" v-link="{ name: 'product', params: { selectProduct: item }}"-->
       <div class="recommand_wrapper">
         <ul class="item-list">
-          <li class="item" v-for="item in goods" v-link="{ path: '/product', query: { selectProduct: item.price }}">
+          <li class="item" v-for="item in goods" v-link="{ path: '/product', query: { productId: item.id }}">
             <div class="pic">
               <img :src="item.image">
               <div class="sku-tag sku_tag_important" v-show="item.sku-tag">{{item.sku-tag}}</div>
@@ -115,6 +115,9 @@
             });
           }
         });
+      },
+      mounted() {
+        console.log('mounted.....');
       },
       computed: {
         _carouselHeight() {

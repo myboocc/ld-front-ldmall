@@ -49,6 +49,7 @@
     ],
     "goods": [
       {
+        "id": 1,
         "image": "https://img.alicdn.com/imgextra/i2/1078291725/TB2eSGLybBnpuFjSZFGXXX51pXa_!!1078291725.jpg",
         "sku-tag": "520美粉节",
         "title": "双温除菌，美的生活从洁净开始",
@@ -57,39 +58,54 @@
         "price": 1438.00,
         "collectCount": 109,
         "pics": [
-          "https://img.alicdn.com/imgextra/i4/1078291725/TB2ehPkzNtmpuFjSZFqXXbHFpXa_!!1078291725.jpg",
           "https://img.alicdn.com/imgextra/i2/1078291725/TB2DwLevB0kpuFjy1zdXXXuUVXa_!!1078291725.jpg",
-          "https://img.alicdn.com/imgextra/i3/1078291725/TB2bfIjzJFopuFjSZFHXXbSlXXa_!!1078291725.jpg",
-          "https://img.alicdn.com/imgextra/i1/1078291725/TB2Y6HqzHBnpuFjSZFGXXX51pXa_!!1078291725.png",
-          "https://img.alicdn.com/imgextra/i4/1078291725/TB2npE_vwxlpuFjy0FoXXa.lXXa_!!1078291725.jpg"
+          "https://img.alicdn.com/imgextra/i4/1078291725/TB2ehPkzNtmpuFjSZFqXXbHFpXa_!!1078291725.jpg"
         ]
       },
       {
+        "id": 2,
         "image": "https://img.alicdn.com/imgextra/i2/1078291725/TB2eSGLybBnpuFjSZFGXXX51pXa_!!1078291725.jpg",
         "sku-tag": "520美粉节",
         "title": "双温除菌，美的生活从洁净开始",
         "preSell": true,
         "subTitle": "洗衣机MG90V130WDX",
         "price": 98.00,
-        "collectCount": 109
+        "collectCount": 109,
+        "pics": [
+          "https://img.alicdn.com/imgextra/i3/1078291725/TB2bfIjzJFopuFjSZFHXXbSlXXa_!!1078291725.jpg"
+        ]
       },
       {
+        "id": 3,
         "image": "https://img.alicdn.com/imgextra/i2/1078291725/TB2eSGLybBnpuFjSZFGXXX51pXa_!!1078291725.jpg",
         "sku-tag": "520美粉节",
         "title": "双温除菌，美的生活从洁净开始",
         "preSell": true,
         "subTitle": "洗衣机MG90V130WDX",
         "price": 24.00,
-        "collectCount": 109
+        "collectCount": 109,
+        "pics": [
+          "https://img.alicdn.com/imgextra/i1/1078291725/TB2Y6HqzHBnpuFjSZFGXXX51pXa_!!1078291725.png",
+          "https://img.alicdn.com/imgextra/i3/1078291725/TB2bfIjzJFopuFjSZFHXXbSlXXa_!!1078291725.jpg",
+          "https://img.alicdn.com/imgextra/i4/1078291725/TB2npE_vwxlpuFjy0FoXXa.lXXa_!!1078291725.jpg"
+        ]
       },
       {
+        "id": 4,
         "image": "https://img.alicdn.com/imgextra/i2/1078291725/TB2eSGLybBnpuFjSZFGXXX51pXa_!!1078291725.jpg",
         "sku-tag": "520美粉节",
         "title": "双温除菌，美的生活从洁净开始",
         "preSell": true,
         "subTitle": "洗衣机MG90V130WDX",
         "price": 58.00,
-        "collectCount": 109
+        "collectCount": 109,
+        "pics": [
+          "https://img.alicdn.com/imgextra/i4/1078291725/TB2ehPkzNtmpuFjSZFqXXbHFpXa_!!1078291725.jpg",
+          "https://img.alicdn.com/imgextra/i1/1078291725/TB2Y6HqzHBnpuFjSZFGXXX51pXa_!!1078291725.png",
+          "https://img.alicdn.com/imgextra/i2/1078291725/TB2DwLevB0kpuFjy1zdXXXuUVXa_!!1078291725.jpg",
+          "https://img.alicdn.com/imgextra/i3/1078291725/TB2bfIjzJFopuFjSZFHXXbSlXXa_!!1078291725.jpg",
+          "https://img.alicdn.com/imgextra/i4/1078291725/TB2npE_vwxlpuFjy0FoXXa.lXXa_!!1078291725.jpg"
+        ]
       }
     ],
     "infos": [

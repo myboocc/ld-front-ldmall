@@ -4,6 +4,8 @@
       <div class="swiper-slide" v-for="item in list">
         <a href="#"><img :src="item" :style="{height: height}"></a>
       </div>
+      <!--<slot>-->
+      <!--</slot>-->
     </div>
     <div class="swiper-pagination" :class="classpage" v-if="showpage"></div>
   </div>
@@ -16,6 +18,7 @@
     ready(){
       let _this = this;
       if (!(_this.list && _this.list.length === 0)) {
+        console.log('===_this.renderSwiper====');
         _this.renderSwiper();
       }
     },
@@ -37,6 +40,12 @@
           paginationClickable: true
         });
       }
+    },
+    activated(){
+      console.log('===activated====');
+    },
+    destroyed() {
+      console.log('destroyed');
     },
     props: {
       list: {
@@ -81,8 +90,16 @@
       }
     },
     watch: {
-      list: function (val) {
-        this.swiper2.init();
+      'list': function (val) {
+        console.log('list change');
+        console.log(this.swiper2);
+        if(this.swiper2){
+          this.swiper2.init();
+        }
+//        this.swiper2.destroy(true);
+//        setTimeout(function () {
+//          this.renderSwiper();
+//        }, 3000);
       }
     }
   };

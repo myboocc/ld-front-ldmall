@@ -1,10 +1,10 @@
 <template>
   <div class="swiper-container appSwiper">
     <div class="swiper-wrapper">
-      <div v-if="isDetail" class="swiper-slide" v-for="item in list">
-        <a href="javascript:void(0)"><img :src="item"></a>
-      </div>
-      <a v-if="!isDetail" href="javascript:void(0)" class="swiper-slide" v-for="item in list" :style="{backgroundImage: buildBackgroundUrl(item),height: swiperHeight}"></a>
+      <!--<div v-if="isDetail" class="swiper-slide" v-for="item in list">-->
+        <!--<a href="javascript:void(0)"><img :src="item"></a>-->
+      <!--</div>-->
+      <a href="javascript:void(0)" class="swiper-slide" v-for="item in list" :style="{backgroundImage: buildBackgroundUrl(item),height: swiperHeight}"></a>
     </div>
     <div class="swiper-pagination" :class="classpage"  v-if="showpage"></div>
   </div>
