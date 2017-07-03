@@ -18,36 +18,37 @@
       <!--</div>-->
     <!--</div>-->
   <!--</div>-->
-
   <div  class="product" transition="fadeInLeft" v-el:product>
     <div class="productContent">
       <!--轮播图-->
       <d-carousel v-if="productPics.length" classpage="app-pagination" :list="productPics"></d-carousel>
+
+      <div class="productInfo">
+        <div class="titleWrapper">
+          <div class="title">
+            <span class="preSell">[预售]</span>H.S MAKE 花觅食 佛手柑蜂王浆面膜 25Gx5片/盒 HYDRO SAPIENS
+          </div>
+          <div class="subTitle" v-if="product.subTitle">
+            【预售第一名付尾款半价，2-50名付尾款返现100元+干衣架，51-100名付尾款返现50元+干衣架】【5月5-14日下定金即送排插A1C02L1.2-A5】
+          </div>
+          <div class="priceWrapper">
+            <div class="price">
+              ￥&nbsp;<span class="priceNumber">{{product.price}}</span><del v-if="product.oldPrice" class="oldPrice">¥ 2498.00</del>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+
     </div>
-    <a>{{product}}</a>
   </div>
-  <!--<div  class="product" transition="fadeInLeft" v-el:product>-->
-    <!--<div class="productContent">-->
-      <!--<p>asjkldsajl</p>-->
-      <!--&lt;!&ndash;轮播图&ndash;&gt;-->
-      <!--<div v-if="recommends.length" class="slider-wrapper">-->
-        <!--<slider>-->
-          <!--<div v-for="item in recommends">-->
-            <!--<a :href="item">-->
-              <!--<img :src="item">-->
-            <!--</a>-->
-          <!--</div>-->
-        <!--</slider>-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<a>{{product}}</a>-->
-  <!--</div>-->
 </template>
 
 <script type="text/ecmascript-6">
 //  import BScroll from 'better-scroll';
   import carouselDetail from 'components/swiper/carouselDetail';
-  import slider from 'components/slider/slider';
   const ERROR_OK = 0;
 
   export default {
@@ -66,7 +67,6 @@
     },
     created() {
       this.fetchProduct(this.$route.query.productId);
-//      this._getRecommend();
     },
     route: {
       activate() {
@@ -79,38 +79,6 @@
       waitForData: true
     },
     methods: {
-      _getRecommend() {
-//        this.$http.get('/api/seller').then((res) => {
-//          if (res.code === ERR_OK) {
-//            this.recommends = res.data.slider
-//          }
-//        });
-        var newId = parseInt(this.$route.query.productId);
-        this.$http.get('/api/seller').then((response) => {
-          response = response.body;
-          if(response.errno === ERROR_OK ){
-            var goods = response.data.goods;
-            goods.forEach((product) => {
-              if(product.id === newId){
-                this.recommends = product.pics;
-                console.log('找到匹配到的数据了');
-              }
-            });
-          }
-        });
-      },
-      show() {
-        this.showFlag = true;
-//        this.$nextTick(() => {
-//          if(!this.scroll){
-//            this.scroll = new BScroll(this.$els.food, {
-//              click: true
-//            });
-//          }else{
-//            this.scroll.refresh();
-//          }
-//        });
-      },
       hide() {
         this.showFlag = false;
       },
@@ -130,7 +98,6 @@
                 transition.next();
                 return;
               }
-//              console.log(product);
             });
           }
         });
@@ -142,8 +109,7 @@
 //      }
     },
     components: {
-      'd-carousel': carouselDetail,
-      slider
+      'd-carousel': carouselDetail
     }
   };
 </script>
