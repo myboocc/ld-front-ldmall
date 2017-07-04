@@ -80,22 +80,6 @@
       },
       ready() {
         console.log('aaa');
-        this._initScroll();
-        this.scroll.on('scroll', (pos) => {
-          this.scrollY = Math.abs(Math.round(pos.y));
-//          console.log(this.scrollY);
-          if(this.scrollY > SCROLL_TOP){
-            this.$dispatch('show.tab', true);
-            this.bottom50 = true;
-          }else if(this.scrollY < SCROLL_TOP){
-            this.$dispatch('show.tab', false);
-            this.bottom50 = false;
-          }
-        });
-        let self = this;
-        setTimeout(function () {
-          self._initScroll();
-        }, 300);
       },
       created() {
         this.$http.get('/api/seller').then((response) => {
@@ -107,10 +91,7 @@
 //            this.loading = false;
             console.log('bbb');
             this.$nextTick(() => {
-//              this.scroll = new BScroll(this.$els.homeWrapper, {
-//                probeType: 3,
-//                click: true
-//              });
+              this._initScroll();
               console.log('ccc++');
             });
           }
@@ -131,6 +112,17 @@
             this.scroll = new BScroll(this.$els.homeWrapper, {
               probeType: 3,
               click: true
+            });
+            this.scroll.on('scroll', (pos) => {
+              this.scrollY = Math.abs(Math.round(pos.y));
+//          console.log(this.scrollY);
+              if(this.scrollY > SCROLL_TOP){
+                this.$dispatch('show.tab', true);
+                this.bottom50 = true;
+              }else if(this.scrollY < SCROLL_TOP){
+                this.$dispatch('show.tab', false);
+                this.bottom50 = false;
+              }
             });
             console.log('执行创建，，，');
           }else{
@@ -153,7 +145,10 @@
         'wiper.ok'(args) {
           this.$nextTick(() => {
             console.log('ccc' + args);
-            this._initScroll();
+            let self = this;
+            setTimeout(function () {
+              self._initScroll();
+            }, 300);
           });
         }
       },
