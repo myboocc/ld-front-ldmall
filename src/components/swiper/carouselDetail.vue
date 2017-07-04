@@ -37,7 +37,10 @@
           loop: _this.loop,
           autoplayDisableOnInteraction: _this.autoplayDisableOnInteraction,
           pagination: '.swiper-pagination',
-          paginationClickable: true
+          paginationClickable: true,
+          onInit: function () {
+            _this.$dispatch('productSwiper.ok');
+          }
         });
       }
     },
@@ -96,6 +99,9 @@
         if(this.swiper2){
           this.swiper2.init();
         }
+//        this.$nextTick(() => {
+//          this.$dispatch('productSwiper.ok');
+//        });
 //        this.swiper2.destroy(true);
 //        setTimeout(function () {
 //          this.renderSwiper();

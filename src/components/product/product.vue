@@ -18,7 +18,7 @@
       <!--</div>-->
     <!--</div>-->
   <!--</div>-->
-  <div  class="product" transition="fadeInLeft" v-el:product>
+  <div  class="product" transition="fadeInLeft" v-el:product-wrapper>
     <div class="productContent">
       <!--轮播图-->
       <d-carousel v-if="productPics.length" classpage="app-pagination" :list="productPics"></d-carousel>
@@ -31,11 +31,36 @@
           <div class="subTitle" v-if="product.subTitle">
             【预售第一名付尾款半价，2-50名付尾款返现100元+干衣架，51-100名付尾款返现50元+干衣架】【5月5-14日下定金即送排插A1C02L1.2-A5】
           </div>
-          <div class="priceWrapper">
-            <div class="price">
-              ￥&nbsp;<span class="priceNumber">{{product.price}}</span><del v-if="product.oldPrice" class="oldPrice">¥ 2498.00</del>
-            </div>
-
+          <div class="price">
+            ￥<span class="priceNumber">{{product.price}}</span><del v-if="product.oldPrice" class="oldPrice">¥ 2498.00</del>
+          </div>
+          <div class="freightWrapper">
+            <span v-if="!product.freight">运费：免运费</span>
+            <span v-if="product.freight">运费：{{product.freight}}</span>
+          </div>
+        </div>
+        <split></split>
+        <div class="storeInfo">
+          <div class="storeName">
+            <a href="#" class="storeLink clearfix">
+              <div class="name">
+                <span class="icon icon-home"></span>
+                <span class="text">LD乐蒂</span>
+              </div>
+              <div class="enterStore">
+                <span>进入店铺</span>
+              </div>
+            </a>
+          </div>
+          <div class="storeRenZheng">
+            <span class="renzhengItem">
+              <span class="renzhengPic"></span>
+              <span class="text">企业认证</span>
+            </span>
+            <span class="renzhengItem">
+              <span class="renzhengPic"></span>
+              <span class="text">担保交易</span>
+            </span>
           </div>
         </div>
 
@@ -47,8 +72,10 @@
 </template>
 
 <script type="text/ecmascript-6">
-//  import BScroll from 'better-scroll';
+  import BScroll from 'better-scroll';
   import carouselDetail from 'components/swiper/carouselDetail';
+  import split from 'components/split/split';
+
   const ERROR_OK = 0;
 
   export default {
@@ -66,7 +93,17 @@
       };
     },
     created() {
-      this.fetchProduct(this.$route.query.productId);
+//      this.fetchProduct(this.$route.query.productId);
+//      let self = this;
+//      setTimeout(function () {
+//        self._initScroll();
+//      }, 300);
+      this.$nextTick(() => {
+        this._initScroll();
+      });
+    },
+    ready() {
+
     },
     route: {
       activate() {
@@ -79,6 +116,17 @@
       waitForData: true
     },
     methods: {
+      _initScroll() {
+        if(!this.scrollProduct){
+          this.scrollProduct = new BScroll(this.$els.productWrapper, {
+            click: true
+          });
+          console.log('执行创建，，，');
+        }else{
+          this.scrollProduct.refresh();
+          console.log('执行刷新，，，。。。');
+        }
+      },
       hide() {
         this.showFlag = false;
       },
@@ -91,11 +139,12 @@
             var goods = response.data.goods;
             goods.forEach((product) => {
               if(product.id === newId){
+                this.product = product;
                 this.productPics = product.pics;
                 this.showCarousel = true;
-                console.log('找到匹配到的数据了');
-                console.log(this.productPics);
+                console.log(this.product);
                 transition.next();
+                this.$dispatch('show.tab', false);
                 return;
               }
             });
@@ -108,8 +157,20 @@
 //        this.fetchProduct(this.$route.query.productId);
 //      }
     },
+    events: {
+      'productSwiper.ok'() {
+        this.$nextTick(() => {
+          console.log('ppppp----');
+          let self = this;
+          setTimeout(function () {
+            self._initScroll();
+          }, 30);
+        });
+      }
+    },
     components: {
-      'd-carousel': carouselDetail
+      'd-carousel': carouselDetail,
+      split
     }
   };
 </script>
@@ -123,16 +184,74 @@
     z-index:300;
     width: 100%;
     background: #fff;
+    overflow: hidden;
     .productContent
-      height: 100%;
-      overflow: hidden;
       .slider-wrapper
         position: relative
         width: 100%
         overflow: hidden
+      .productInfo
+        box-sizing :border-box;
+        background: #fff;
+        .titleWrapper
+          padding: 15px;
+          .title
+            color: #333;
+            margin-bottom :4px;
+            font-size :14px;
+            word-wrap : break-word;
+            word-break :break-all;
+            line-height :1.25;
+            .preSell
+              color: #f60;
+          .subTitle
+            font-size :12px;
+            line-height: 14px;
+            color: #f60;
+          .price
+            padding: 4px 0;
+            font-size :14px;
+            color: #F60;
+            border-bottom :1px solid #e5e5e5;
+            .priceNumber
+              font-size :24px;
+            .oldPrice
+              color: #999;
+              font-size :13px;
+              margin-left :4px;
+          .freightWrapper
+            padding: 10px 0;
+            padding-bottom :0;
+            color: #999;
+            font-size :12px;
+        .storeInfo
+          padding-left: 15px;
+          .storeLink
+            display: block;
+          .storeName
+            position: relative;
+            padding: 10px 10px 10px 0;
+            border-bottom :1px solid #e5e5e5;
+            font-size :14px;
+            &:after
+              content: '';
+              position: absolute;
+              top: 13px;
+              right: 12px;
+              width: 7px;
+              height: 7px;
+              border-top: 2px solid #cbc9cc;
+              border-right: 2px solid #cbc9cc;
+              transform: rotate(45deg);
+            .name
+              float: left;
+            .enterStore
+              float: right;
+              padding-right :15px;
     &.move-transition
       transition:all 0.2s linear;
       transform :translate3D(0,0,0);
     &.move-enter, &.move-leave
       transform :translate3D(100%,0,0);
+
 </style>
