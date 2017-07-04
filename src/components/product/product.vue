@@ -63,17 +63,20 @@
             </span>
           </div>
         </div>
+        <split></split>
 
       </div>
 
 
     </div>
   </div>
+  <shopcart></shopcart>
 </template>
 
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll';
   import carouselDetail from 'components/swiper/carouselDetail';
+  import shopcart from 'components/shopcart/shopcart';
   import split from 'components/split/split';
 
   const ERROR_OK = 0;
@@ -170,7 +173,8 @@
     },
     components: {
       'd-carousel': carouselDetail,
-      split
+      split,
+      shopcart
     }
   };
 </script>
@@ -180,7 +184,7 @@
     position: fixed;
     left: 0;
     top: 0;
-    bottom :48px;
+    bottom :50px;
     z-index:300;
     width: 100%;
     background: #fff;
@@ -248,6 +252,21 @@
             .enterStore
               float: right;
               padding-right :15px;
+          .storeRenZheng
+            padding: 10px 10px 10px 0;
+            font-size :12px;
+            .renzhengItem
+              margin-right :16px;
+            .renzhengPic
+              display: inline-block;
+              width: 13px;
+              height: 13px;
+              background-image :url('https://img.alicdn.com/imgextra/i1/1078291725/TB2zdPLAbxmpuFjSZJiXXXauVXa_!!1078291725.png');
+              background-repeat :no-repeat;
+              background-size :58px 48px;
+              vertical-align: middle;
+              background-position: -18px -30px;
+              margin-right :3px;
     &.move-transition
       transition:all 0.2s linear;
       transform :translate3D(0,0,0);

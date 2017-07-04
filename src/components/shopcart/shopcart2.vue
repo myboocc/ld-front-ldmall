@@ -1,41 +1,52 @@
 <template>
-  <div class="shopcart" >
+  <div class="shopcart">
     <div class="content" @click="toggleList">
-      <div class="content-collect">
-        <span class="icon-favorite"></span>
-        <span class="text">收藏</span>
+      <div class="content-left">
+        <div class="logo-wrapper">
+          <div class="logo" :class="{'hightlight':totalCount>0}">
+            <i class="icon-shopping_cart" :class="{'hightlight':totalCount>0}"></i>
+          </div>
+          <div class="num" v-show="totalCount > 0">{{totalCount}}</div>
+        </div>
+        <div class="price" :class="{'hightlight':totalPrice>0}">
+          ￥{{totalPrice}}
+        </div>
+        <div class="desc">
+          另需配送费￥{{deliveryPrice}}元
+        </div>
       </div>
-      <div class="content-cart">
-        <span class="icon-shopping_cart"></span>
-        <span class="text">购物车</span>
+      <div class="content-right">
+        <div class="pay" :class="payClass" @click.stop.prevent="pay">
+          {{payDesc}}
+        </div>
       </div>
-      <div class="content-addCart">
-        加入购物车
-      </div>
-      <div class="content-buy">
-        立即购买
+    </div>
+    <!--动画小球-->
+    <div class="ball-container">
+      <div transition="drop" v-for="ball in balls" v-show="ball.show" class="ball">
+        <div class="inner inner-hook"></div>
       </div>
     </div>
     <!--购物车详情-->
-    <!--<div class="shopcart-list" v-show="listShow" transition="fold">-->
-      <!--<div class="list-header">-->
-        <!--<h1 class="title">购物车</h1>-->
-        <!--<span class="empty" @click="empty">清空</span>-->
-      <!--</div>-->
-      <!--<div class="list-content" v-el:list-content>-->
-        <!--<ul>-->
-          <!--<li class="food" v-for="food in selectFoods">-->
-            <!--<span class="name">{{food.name}}</span>-->
-            <!--<div class="price">-->
-              <!--<span>￥{{food.price * food.count}}</span>-->
-            <!--</div>-->
-            <!--<div class="cartcontrol-wrapper">-->
-              <!--<cartcontrol :food="food"></cartcontrol>-->
-            <!--</div>-->
-          <!--</li>-->
-        <!--</ul>-->
-      <!--</div>-->
-    <!--</div>-->
+    <div class="shopcart-list" v-show="listShow" transition="fold">
+      <div class="list-header">
+        <h1 class="title">购物车</h1>
+        <span class="empty" @click="empty">清空</span>
+      </div>
+      <div class="list-content" v-el:list-content>
+        <ul>
+          <li class="food" v-for="food in selectFoods">
+            <span class="name">{{food.name}}</span>
+            <div class="price">
+              <span>￥{{food.price * food.count}}</span>
+            </div>
+            <div class="cartcontrol-wrapper">
+              <cartcontrol :food="food"></cartcontrol>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
   <div class="list-mask" @click="hideList" v-show="listShow" transition="fade"></div>
 </template>
@@ -228,31 +239,14 @@
     position: fixed;
     left: 0;
     bottom: 0;
-    z-index: 300;
+    z-index: 50;
     width: 100%;
-    height: 50px;
-    border-top: 1px solid #f4f4f4;
+    height: 48px;
     .content
       display: flex;
+      background: #141d27;
       font-size :0;
       color: rgba(255, 255, 255, 0.4);
-      text-align: center;
-      .content-collect,.content-cart
-        flex: 0 0 50px;
-        width: 50px;
-        .icon-favorite,.icon-shopping_cart
-          display: block;
-          color: #d4d6d9;
-          line-height: 35px;
-          font-size: 24px;
-        .text
-          line-height: 10px;
-          font-size: 10px;
-          color: #07111b;
-      .content-collect
-        border-right: 1px solid #f4f4f4;
-      .content-addCart,.content-buy
-        flex: 1;
       .content-left
         flex: 1;
         .logo-wrapper
