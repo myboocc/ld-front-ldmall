@@ -7,7 +7,7 @@
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll';
 
-//  const SCROLL_TOP = 100;
+  const SCROLL_TOP = 100;
 
   export default {
     props: {
@@ -63,6 +63,19 @@
       },
       refresh() {
         console.log('zhi xing le');
+        this.scroll && this.scroll.refresh();
+      },
+      homeRefresh() {
+        this.scroll.on('scroll', (pos) => {
+          this.scrollY = Math.abs(Math.round(pos.y));
+          if(this.scrollY > SCROLL_TOP){
+            this.$dispatch('show.tab', true);
+            this.bottom50 = true;
+          }else if(this.scrollY < SCROLL_TOP){
+            this.$dispatch('show.tab', false);
+            this.bottom50 = false;
+          }
+        });
         this.scroll && this.scroll.refresh();
       },
       scrollTo() {
