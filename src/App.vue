@@ -4,6 +4,10 @@
 
 
     <router-view keep-alive></router-view>
+    <!--<keep-alive>-->
+      <!--<router-view v-if="!$route.meta.notKeepAlive"></router-view>-->
+    <!--</keep-alive>-->
+    <!--<router-view v-if="$route.meta.notKeepAlive"></router-view>-->
 
     <div class="tab border-1px" v-show="isShowTab" transition="fade">
       <div class="tab-bar">

@@ -1,6 +1,6 @@
 <template>
   <div  class="product" transition="fadeInLeft" v-el:product-wrapper>
-    <div class="productContent">
+    <div class="productContent" v-el:product-content>
       <!--轮播图-->
       <d-carousel v-if="productPics.length" classpage="app-pagination" :list="productPics"></d-carousel>
 
@@ -45,7 +45,8 @@
           </div>
         </div>
         <split></split>
-
+        <!--详情-->
+        <div class="detailWrapper" v-if="description" v-html="description"></div>
       </div>
 
 
@@ -55,7 +56,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import BScroll from 'better-scroll';
+//  import BScroll from 'better-scroll';
   import carouselDetail from 'components/swiper/carouselDetail';
   import shopcart from 'components/shopcart/shopcart';
   import split from 'components/split/split';
@@ -73,7 +74,10 @@
         showFlag: true,
         showCarousel: false,
         productPics: [],
-        recommends: []
+        scrollY: 0,
+        contentHeight: 0,
+        recommends: [],
+        description: '<div class="module-container j-atp item_picture" data-atp=",," data-spm=""><h3 class="module-title">商品图片</h3><div class="module-content"><div class="mui-custommodule mdv-custommodule" data-mod-name="mui/mdv/zebra">	<div class="mui-custommodule-item">	<img class="lazyImg img-ks-lazyload" alt="" src="https://img.alicdn.com/imgextra/i3/1956718685/TB2TTC9gCvHfKJjSZFPXXbttpXa_!!1956718685.jpg_790x10000Q30.jpg"></div><div class="mui-custommodule-item">	<img class="lazyImg img-ks-lazyload" alt="" src="https://img.alicdn.com/imgextra/i3/1956718685/TB2TTC9gCvHfKJjSZFPXXbttpXa_!!1956718685.jpg_790x10000Q30.jpg"></div><div class="mui-custommodule-item">	<img class="lazyImg img-ks-lazyload" alt="" src="https://img.alicdn.com/imgextra/i4/1956718685/TB28.a.spXXXXa.XXXXXXXXXXXX_!!1956718685.jpg_790x10000Q30.jpg"></div><div class="mui-custommodule-item">	<img class="lazyImg img-ks-lazyload" alt="" src="https://img.alicdn.com/imgextra/i1/1956718685/TB2UBmDspXXXXaKXpXXXXXXXXXX_!!1956718685.jpg_790x10000Q30.jpg"></div><div class="mui-custommodule-item">	<img class="lazyImg img-ks-lazyload" alt="" src="https://img.alicdn.com/imgextra/i1/1956718685/TB2UBmDspXXXXaKXpXXXXXXXXXX_!!1956718685.jpg_790x10000Q30.jpg"></div><div class="mui-custommodule-item">	<img class="lazyImg img-ks-lazyload" alt="" src="https://img.alicdn.com/imgextra/i1/1956718685/TB2UBmDspXXXXaKXpXXXXXXXXXX_!!1956718685.jpg_790x10000Q30.jpg"></div><div class="mui-custommodule-item">	<img class="lazyImg img-ks-lazyload" alt="" src="https://img.alicdn.com/imgextra/i1/1956718685/TB2UBmDspXXXXaKXpXXXXXXXXXX_!!1956718685.jpg_790x10000Q30.jpg"></div><div class="mui-custommodule-item"><img class="lazyImg img-ks-lazyload" alt="" src="https://img.alicdn.com/imgextra/i4/1956718685/TB2Tb1fbCFmpuFjSZFrXXayOXXa_!!1956718685.jpg_790x10000Q30.jpg"></div></div></div></div>'
       };
     },
     created() {
@@ -83,15 +87,19 @@
 //        self._initScroll();
 //      }, 300);
       this.$nextTick(() => {
-        this._initScroll();
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+//        console.log(document.body.scrollTop);
+//        this._initScroll();
       });
     },
     ready() {
-
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+//      console.log(document.body.scrollTop);
     },
     route: {
       activate() {
         console.log('缓存的组件又出现了，我是不是要重新拉取数据呢？');
+//        console.log(to);
       },
       data: function (transition) {
         console.log('jin ru route data');
@@ -100,17 +108,29 @@
       waitForData: true
     },
     methods: {
-      _initScroll() {
-        if(!this.scrollProduct){
-          this.scrollProduct = new BScroll(this.$els.productWrapper, {
-            click: true
-          });
-          console.log('执行创建，，，');
-        }else{
-          this.scrollProduct.refresh();
-          console.log('执行刷新，，，。。。');
-        }
-      },
+//      _initScroll() {
+//        if(!this.scrollProduct){
+//          this.scrollProduct = new BScroll(this.$els.productWrapper, {
+//            probeType: 1,
+//            click: true
+//          });
+//          this.scrollProduct.on('scroll', (pos) => {
+//            this.contentHeight = this.$els.productContent.clientHeight;
+//            this.scrollY = Math.abs(Math.round(pos.y));
+//            console.log(this.scrollY);
+//            console.log(this.contentHeight);
+//            if(this.contentHeight > this.scrollY){
+//              console.log('重新刷新');
+//              this.scrollProduct.refresh();
+//            }
+//          });
+//          console.log('执行创建，，，');
+//        }else{
+//          this.scrollProduct.scrollTo(0, 500);
+//          this.scrollProduct.refresh();
+//          console.log('执行刷新，，，。。。');
+//        }
+//      },
       hide() {
         this.showFlag = false;
       },
@@ -143,13 +163,13 @@
     },
     events: {
       'productSwiper.ok'() {
-        this.$nextTick(() => {
-          console.log('ppppp----');
-          let self = this;
-          setTimeout(function () {
-            self._initScroll();
-          }, 30);
-        });
+//        this.$nextTick(() => {
+//          console.log('ppppp----');
+//          let self = this;
+//          setTimeout(function () {
+//            self._initScroll();
+//          }, 30);
+//        });
       }
     },
     components: {
@@ -162,14 +182,15 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   .product
-    position: fixed;
+    position: absolute;
     left: 0;
     top: 0;
+    right: 0;
     bottom :50px;
     z-index:300;
     width: 100%;
     background: #fff;
-    overflow: hidden;
+    /*overflow: hidden;*/
     .productContent
       .slider-wrapper
         position: relative
@@ -248,6 +269,10 @@
               vertical-align: middle;
               background-position: -18px -30px;
               margin-right :3px;
+      .detailWrapper
+        width: 100%;
+        img
+          width: 100%;
     &.move-transition
       transition:all 0.2s linear;
       transform :translate3D(0,0,0);
