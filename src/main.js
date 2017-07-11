@@ -1,47 +1,18 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import VueResource from 'vue-resource';
-import App from './App';
-import home from 'components/home/home';
-import ratingMode from 'components/ratingMode/ratingMode';
-import seller from 'components/seller/seller';
-import series from 'components/seriesTemplate/seriesTemplate';
-import product from 'components/product/product';
+import 'babel-polyfill'
+import Vue from 'vue'
+import App from './App'
+import router from './router'
+import store from './store'
 
-import 'common/stylus/index.css';
-import 'common/stylus/index.styl';
-import 'common/stylus/swiper.min.css';
+import 'common/stylus/index.styl'
+import 'common/stylus/index.css'
 
-Vue.use(VueRouter);
-Vue.use(VueResource);
+// Vue.config.productionTip = false
 
-let app = Vue.extend(App);
-
-let router = new VueRouter({
-	linkActiveClass: 'active'
-});
-
-router.map({
-	'/home': {
-		component: home
-	},
-	'/ratingMode': {
-		component: ratingMode
-	},
-  '/seller': {
-    component: seller
-  },
-  '/series': {
-    component: series
-  },
-  '/product': {
-    component: product
-  }
-  // '/product/:selectProduct': {
-  //   name: 'product',
-  //   component: product
-  // }
-});
-
-router.start(app, '#app');
-// router.go('/goods');
+/* eslint-disable no-new */
+new Vue({
+  el: '#app',
+  router,
+  store,
+  render: h => h(App)
+})

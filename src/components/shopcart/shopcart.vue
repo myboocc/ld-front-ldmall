@@ -41,7 +41,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-//    import BScroll from 'better-scroll';
+    import BScroll from 'better-scroll';
     import cartcontrol from 'components/cartcontrol/cartcontrol';
 
     export default {
@@ -128,15 +128,15 @@
           }
           let show = !this.fold;
           if(show){
-//            this.$nextTick(() => {
-//              if(!this.scroll){
-//                this.scroll = new BScroll(this.$els.listContent, {
-//                  click: true
-//                });
-//              }else{
-//                this.scroll.refresh();
-//              }
-//            });
+            this.$nextTick(() => {
+              if(!this.scroll){
+                this.scroll = new BScroll(this.$els.listContent, {
+                  click: true
+                });
+              }else{
+                this.scroll.refresh();
+              }
+            });
           }
           return show;
         }
@@ -232,7 +232,6 @@
     width: 100%;
     height: 50px;
     border-top: 1px solid #f4f4f4;
-    background: #fff;
     .content
       display: flex;
       font-size :0;

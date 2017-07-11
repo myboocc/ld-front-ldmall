@@ -56,7 +56,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-//  import BScroll from 'better-scroll';
+  import BScroll from 'better-scroll';
   import carouselDetail from 'components/swiper/carouselDetail';
   import shopcart from 'components/shopcart/shopcart';
   import split from 'components/split/split';
@@ -89,7 +89,7 @@
       this.$nextTick(() => {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
 //        console.log(document.body.scrollTop);
-//        this._initScroll();
+        this._initScroll();
       });
     },
     ready() {
@@ -108,29 +108,29 @@
       waitForData: true
     },
     methods: {
-//      _initScroll() {
-//        if(!this.scrollProduct){
-//          this.scrollProduct = new BScroll(this.$els.productWrapper, {
-//            probeType: 1,
-//            click: true
-//          });
-//          this.scrollProduct.on('scroll', (pos) => {
-//            this.contentHeight = this.$els.productContent.clientHeight;
-//            this.scrollY = Math.abs(Math.round(pos.y));
-//            console.log(this.scrollY);
-//            console.log(this.contentHeight);
-//            if(this.contentHeight > this.scrollY){
-//              console.log('重新刷新');
-//              this.scrollProduct.refresh();
-//            }
-//          });
-//          console.log('执行创建，，，');
-//        }else{
-//          this.scrollProduct.scrollTo(0, 500);
-//          this.scrollProduct.refresh();
-//          console.log('执行刷新，，，。。。');
-//        }
-//      },
+      _initScroll() {
+        if(!this.scrollProduct){
+          this.scrollProduct = new BScroll(this.$els.productWrapper, {
+            probeType: 1,
+            click: true
+          });
+          this.scrollProduct.on('scroll', (pos) => {
+            this.contentHeight = this.$els.productContent.clientHeight;
+            this.scrollY = Math.abs(Math.round(pos.y));
+            console.log(this.scrollY);
+            console.log(this.contentHeight);
+            if(this.contentHeight > this.scrollY){
+              console.log('重新刷新');
+              this.scrollProduct.refresh();
+            }
+          });
+          console.log('执行创建，，，');
+        }else{
+          this.scrollProduct.scrollTo(0, 500);
+          this.scrollProduct.refresh();
+          console.log('执行刷新，，，。。。');
+        }
+      },
       hide() {
         this.showFlag = false;
       },
@@ -163,13 +163,13 @@
     },
     events: {
       'productSwiper.ok'() {
-//        this.$nextTick(() => {
-//          console.log('ppppp----');
-//          let self = this;
-//          setTimeout(function () {
-//            self._initScroll();
-//          }, 30);
-//        });
+        this.$nextTick(() => {
+          console.log('ppppp----');
+          let self = this;
+          setTimeout(function () {
+            self._initScroll();
+          }, 30);
+        });
       }
     },
     components: {
@@ -182,15 +182,14 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   .product
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
-    right: 0;
     bottom :50px;
     z-index:300;
     width: 100%;
     background: #fff;
-    /*overflow: hidden;*/
+    overflow: hidden;
     .productContent
       .slider-wrapper
         position: relative

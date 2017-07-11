@@ -54,10 +54,11 @@
 <script type="text/ecmascript-6">
     import BScroll from 'better-scroll';
     import split from 'components/split/split';
-//    import Loading from 'components/loading/Loading';
     import carousel from 'components/swiper/carousel';
     import recommandBar from 'components/recommandBar/recommandBar';
     import product from 'components/product/product';
+    import {getRecommend} from 'api/recommend';
+    import {ERR_OK} from 'api/config'
 
     const ERR_OK = 0;
     const SCROLL_TOP = 100;
@@ -82,6 +83,7 @@
         console.log('aaa');
       },
       created() {
+        this._getRecommend();
         this.$http.get('/api/seller').then((response) => {
           response = response.body;
           if(response.errno === ERR_OK ){
@@ -107,6 +109,13 @@
         }
       },
       methods: {
+        _getRecommend(){
+          getRecommend().then((res) => {
+            if(res.code === ERR_OK){
+              console.log(res.data.slider);
+            }
+          })
+        },
         _initScroll() {
           if(!this.scroll){
             this.scroll = new BScroll(this.$els.homeWrapper, {
