@@ -5,7 +5,7 @@
       <div class="goodsItem">
         <div class="item">
           <div class="goodsPic">
-            <img src="../../assets/product.png" width="100%" height="auto">
+            <!--<img src="../../assets/product.png" width="100%" height="auto">-->
           </div>
           <div class="goodsInfo">
             <p class="goodsTitle">H.S MAKE 佛手柑精油蜡烛 LUXURY CANDLE BERGAMOT ESSENTIAL OIL</p>
@@ -17,7 +17,7 @@
       <div class="goodsItem">
         <div class="item">
           <div class="goodsPic">
-            <img src="../../assets/product.png" width="100%" height="auto">
+            <!--<img src="../../assets/product.png" width="100%" height="auto">-->
           </div>
           <div class="goodsInfo">
             <p class="goodsTitle">H.S MAKE 佛手柑精油蜡烛 LUXURY CANDLE BERGAMOT ESSENTIAL OIL</p>
@@ -29,7 +29,7 @@
       <div class="goodsItem">
         <div class="item">
           <div class="goodsPic">
-            <img src="../../assets/product.png" width="100%" height="auto">
+            <!--<img src="../../assets/product.png" width="100%" height="auto">-->
           </div>
           <div class="goodsInfo">
             <p class="goodsTitle">H.S MAKE 佛手柑精油蜡烛 LUXURY CANDLE BERGAMOT ESSENTIAL OIL</p>

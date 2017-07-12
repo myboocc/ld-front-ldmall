@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import home from 'components/home/home'
-import series from 'components/seriesTemplate/seriesTemplate'
-import product from 'components/product/product'
+// import home from 'components/home/home'
+// import series from 'components/seriesTemplate/seriesTemplate'
+// import product from 'components/product/product'
+import recommend from 'components/recommend/recommend'
 
 Vue.use(Router)
 
@@ -10,21 +11,12 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/home'
+      redirect: '/recommend'
     },
     {
-      path: '/home',
-      component: home,
+      path: '/recommend',
+      component: recommend,
       mate: { keepAlive: true }
-    },
-    {
-      path: '/series',
-      component: series
-    },
-    {
-      path: '/product',
-      component: product,
-      mate: { keepAlive: false }
     }
   ]
 })
