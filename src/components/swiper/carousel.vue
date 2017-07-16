@@ -1,10 +1,7 @@
 <template>
   <div class="swiper-container appSwiper">
     <div class="swiper-wrapper">
-      <!--<div v-if="isDetail" class="swiper-slide" v-for="item in list">-->
-        <!--<a href="javascript:void(0)"><img :src="item"></a>-->
-      <!--</div>-->
-      <a href="javascript:void(0)" class="swiper-slide" v-for="item in list" :style="{backgroundImage: buildBackgroundUrl(item),height: swiperHeight}"></a>
+      <slot></slot>
     </div>
     <div class="swiper-pagination" :class="classpage"  v-if="showpage"></div>
   </div>
@@ -14,21 +11,15 @@
     import Swiper from 'swiper';
 
     export default {
-      ready(){
+      mounted() {
         let _this = this;
-        console.log('+++ddd');
 //        if (_this.list && _this.list.length > 0) {
         if (!(_this.list && _this.list.length === 0)) {
           _this.renderSwiper();
-          console.log('ddd');
         }
       },
       methods: {
-        /* 背景图片路径*/
-        buildBackgroundUrl: function (url) {
-          return `url(${url})`;
-        },
-        /* 渲染swiper组件*/
+        /* 渲染swiper组件 */
         renderSwiper() {
           let _this = this;
           _this.swiper = new Swiper(_this.$el, {
@@ -38,17 +29,8 @@
             loop: _this.loop,
             autoplayDisableOnInteraction: _this.autoplayDisableOnInteraction,
             pagination: '.swiper-pagination',
-            paginationClickable: true,
-            onInit: function () {
-              _this.$dispatch('wiper.ok', 'onInit li de');
-//              window.alert('123123');
-            }
+            paginationClickable: true
           });
-        }
-      },
-      computed: {
-        swiperHeight() {
-          return this.height + 'px';
         }
       },
       props: {
@@ -91,15 +73,11 @@
         classpage: String
       },
       watch: {
-        'list' (val) {
-          this.renderSwiper();
-          console.log('ddd----');
+        list() {
           this.$nextTick(() => {
-            this.$dispatch('wiper.ok', 'watch li de');
+            this.renderSwiper();
+            console.log('render Swiper');
           });
-        },
-        'isDetail' () {
-          this.renderSwiper();
         }
       }
     };

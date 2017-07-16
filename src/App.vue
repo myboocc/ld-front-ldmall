@@ -1,23 +1,20 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
+    <!--<tab></tab>-->
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-export default {
-  name: 'app'
-}
+  import Tab from 'components/tab/tab';
+  export default {
+    components: {
+      Tab
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>

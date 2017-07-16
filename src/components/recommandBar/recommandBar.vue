@@ -7,21 +7,21 @@
 </template>
 
 <script type="text/ecmascript-6">
-    export default {
-      props: {
-        title: {
-          type: String,
-          required: true
-        },
-        iconName: {
-          type: String,
-          required: false
-        },
-        desc: {
-          type: String
-        }
+  export default {
+    props: {
+      title: {
+        type: String,
+        required: true
+      },
+      iconName: {
+        type: String,
+        required: false
+      },
+      desc: {
+        type: String
       }
-    };
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
