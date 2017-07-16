@@ -253,11 +253,16 @@
         border-right: 1px solid #f4f4f4;
       .content-addCart,.content-buy
         flex: 1;
+        height: 50px;
         font-size :14px;
-        color: #07111b;
+        color: #fff;
         display: flex;
         justify-content: center;
         align-items: center;
+      .content-addCart
+        background: #0092d8;
+      .content-buy
+        background: #f60;
       .content-left
         flex: 1;
         .logo-wrapper
