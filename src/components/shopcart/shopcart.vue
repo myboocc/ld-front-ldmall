@@ -1,52 +1,58 @@
 <template>
-  <div class="shopcart" >
-    <div class="content" @click="toggleList">
-      <div class="content-collect">
-        <span class="icon-favorite"></span>
-        <span class="text">收藏</span>
+  <div>
+    <div class="shopcart" >
+      <div class="content">
+        <div class="content-collect">
+          <span class="icon-favorite"></span>
+          <span class="text">收藏</span>
+        </div>
+        <div class="content-cart">
+          <span class="icon-shopping_cart"></span>
+          <span class="text">购物车</span>
+        </div>
+        <div class="content-addCart" @click="toggleList">
+          加入购物车
+        </div>
+        <div class="content-buy">
+          立即购买
+        </div>
       </div>
-      <div class="content-cart">
-        <span class="icon-shopping_cart"></span>
-        <span class="text">购物车</span>
-      </div>
-      <div class="content-addCart">
-        加入购物车
-      </div>
-      <div class="content-buy">
-        立即购买
-      </div>
+      <!--购物车详情-->
+      <transition name="fold">
+        <div class="shopcart-list" v-show="listShow">
+          <div class="list-header">
+            <h1 class="title">购物车</h1>
+            <span class="empty" @click="empty">清空</span>
+          </div>
+          <div class="list-content" ref="listContent">
+            <ul>
+              <li class="product">
+                <span class="name">{{selectProduct.title}}</span>
+                <div class="price">
+                  <span>￥{{selectProduct.price}}</span>
+                </div>
+                <div class="cartcontrol-wrapper">
+                  <cart-control :product="selectProduct"></cart-control>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </transition>
     </div>
-    <!--购物车详情-->
-    <!--<div class="shopcart-list" v-show="listShow" transition="fold">-->
-      <!--<div class="list-header">-->
-        <!--<h1 class="title">购物车</h1>-->
-        <!--<span class="empty" @click="empty">清空</span>-->
-      <!--</div>-->
-      <!--<div class="list-content" v-el:list-content>-->
-        <!--<ul>-->
-          <!--<li class="food" v-for="food in selectFoods">-->
-            <!--<span class="name">{{food.name}}</span>-->
-            <!--<div class="price">-->
-              <!--<span>￥{{food.price * food.count}}</span>-->
-            <!--</div>-->
-            <!--<div class="cartcontrol-wrapper">-->
-              <!--<cartcontrol :food="food"></cartcontrol>-->
-            <!--</div>-->
-          <!--</li>-->
-        <!--</ul>-->
-      <!--</div>-->
-    <!--</div>-->
-    <div class="list-mask" @click="hideList" v-show="listShow" transition="fade"></div>
+    <transition name="fade">
+      <div class="list-mask" @click="hideList" v-show="listShow"></div>
+    </transition>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-//  import cartcontrol from 'components/cartcontrol/cartcontrol';
+  import CartControl from 'components/cartcontrol/cartcontrol';
 
   export default {
     props: {
-      selectFoods: {
-        type: Array,
+      selectProduct: {
+        type: Object,
         default() {
           return [
             {
@@ -91,16 +97,16 @@
     computed: {
       totalPrice() {
         let total = 0;
-        this.selectFoods.forEach((food) => {
-          total += food.price * food.count;
-        });
+//        this.selectFoods.forEach((food) => {
+//          total += food.price * food.count;
+//        });
         return total;
       },
       totalCount() {
         let count = 0;
-        this.selectFoods.forEach((food) => {
-          count += food.count;
-        });
+//        this.selectFoods.forEach((food) => {
+//          count += food.count;
+//        });
         return count;
       },
       payDesc() {
@@ -121,10 +127,10 @@
         }
       },
       listShow() {
-        if(!this.totalCount){
-          this.fold = true;
-          return false;
-        }
+//        if(!this.totalCount){
+//          this.fold = true;
+//          return false;
+//        }
         let show = !this.fold;
         if(show){
 //          this.$nextTick(() => {
@@ -153,15 +159,17 @@
         }
       },
       toggleList() {
-        if(!this.totalCount) {
-          return;
-        }
+//        if(!this.totalCount) {
+//          console.log('jin ru le ' + this.totalCount);
+//          return;
+//        }
+        console.log('meiyou jinru');
         this.fold = !this.fold;
       },
       empty() {
-        this.selectFoods.forEach((food) => {
-          food.count = 0;
-        });
+//        this.selectFoods.forEach((food) => {
+//          food.count = 0;
+//        });
       },
       hideList() {
         this.fold = true;
@@ -215,7 +223,7 @@
       }
     },
     components: {
-//      cartcontrol
+      CartControl
     }
   };
 </script>
@@ -240,6 +248,7 @@
       .content-collect,.content-cart
         flex: 0 0 50px;
         width: 50px;
+        background: #fff;
         .icon-favorite,.icon-shopping_cart
           display: block;
           color: #d4d6d9;
@@ -263,81 +272,6 @@
         background: #0092d8;
       .content-buy
         background: #f60;
-      .content-left
-        flex: 1;
-        .logo-wrapper
-          display: inline-block;
-          position: relative;
-          top: -10px;
-          margin: 0 12px;
-          padding: 6px;
-          width: 56px;
-          height: 56px;
-          box-sizing : border-box;
-          vertical-align: top;
-          border-radius : 50%;
-          background: #141d27;
-          .num
-            position: absolute;
-            top:0;
-            right:0;
-            width:24px;
-            height:16px;
-            line-height:16px;
-            text-align :center;
-            border-radius :16px;
-            font-size : 9px;
-            font-weight :700;
-            color: #fff;
-            background: rgb(240, 20, 20);
-            box-shadow : 0 4px 8px 0 rgba(0,0,0,0.4);
-          .logo
-            width: 100%;
-            height: 100%;
-            border-radius : 50%;
-            background: #2b343c;
-            text-align: center;
-            &.hightlight
-              background: rgb(0, 160, 220);
-            .icon-shopping_cart
-              font-size 24px;
-              color: #80858a;
-              line-height :44px;
-              &.hightlight
-                color: #fff;
-        .price
-          display: inline-block;
-          vertical-align: top;
-          margin-top:12px;
-          line-height: 24px;
-          padding-right:12px;
-          border-right: 1px solid rgba(255,255,255,0.1);
-          font-size:16px;
-          font-weight : 700;
-          box-sizing :border-box;
-          &.hightlight
-            color: #fff;
-        .desc
-          display: inline-block;
-          vertical-align :top;
-          margin: 12px 0 0 12px;
-          line-height :24px;
-
-          font-size : 10px;
-      .content-right
-        flex: 0 0 105px;
-        width: 105px;
-        .pay
-          height:48px;
-          line-height :48px;
-          text-align :center;
-          font-size :12px;
-          font-weight :700;
-          &.not-enough
-            background: #2b333b;
-          &.enough
-            background: #00b43c;
-            color: #fff;
     .ball-container
       .ball
         position: fixed;
@@ -358,10 +292,10 @@
       left:0;
       z-index:-1;
       width: 100%;
-      &.fold-transition
-        transition: all 0.5s;
-        transform : translate3d(0, -100%, 0);
-      &.fold-enter, &.fold-leave
+      transform : translate3d(0, -100%, 0);
+      &.fold-enter-active,&.fold-leave-active
+        transition: all 0.5s ease;
+      &.fold-enter, &.fold-leave-to
         transform : translate3d(0, 0, 0);
       .list-header
         height:40px;
@@ -382,7 +316,7 @@
         max-height: 217px;
         background: #fff;
         overflow: hidden;
-        .food
+        .product
           position: relative;
           padding:12px 0;
           box-sizing :border-box;
@@ -409,13 +343,13 @@
     left:0;
     width:100%;
     height:100%;
-    z-index: 40;
+    z-index: 290;
     backdrop-filter:blur(10px);
-    &.fade-transition
+    opacity:1;
+    background: rgba(7, 17, 27, 0.6);
+    &.fade-enter-active,&.fade-leave-active
       transition: all 0.5s;
-      opacity:1;
-      background: rgba(7, 17, 27, 0.6);
-    &.fade-enter, &.fade-leave
+    &.fade-enter, &.fade-leave-to
       opacity:0;
       background: rgba(7, 17, 27, 0);
 </style>

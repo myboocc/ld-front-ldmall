@@ -57,7 +57,7 @@
           </div>
         </div>
       </scroll>
-      <shop-cart></shop-cart>
+      <shop-cart :select-product="product"></shop-cart>
     </div>
   </transition>
 </template>

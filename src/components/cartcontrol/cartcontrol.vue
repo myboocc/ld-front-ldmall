@@ -1,9 +1,9 @@
 <template>
   <div class="cartcontrol">
-    <div class="cart-decrease" @click.stop.prevent="decreaseCart" v-show="food.count > 0" transition="move">
+    <div class="cart-decrease" @click.stop.prevent="decreaseCart" v-show="product.count > 0" transition="move">
       <span class="inner icon-remove_circle_outline"></span>
     </div>
-    <div class="cart-count" v-show="food.count > 0">{{food.count}}</div>
+    <div class="cart-count" v-show="product.count > 0">{{product.count}}</div>
     <div class="cart-add icon-add_circle" @click.stop.prevent="addCart"></div>
   </div>
 </template>
@@ -13,7 +13,7 @@
 
     export default {
       props: {
-        food: {
+        product: {
           type: Object
         }
       },
@@ -22,19 +22,19 @@
           if(!event._constructed){
             return;
           }
-          if(!this.food.count){
-            Vue.set(this.food, 'count', 1);
+          if(!this.product.count){
+            Vue.set(this.product, 'count', 1);
           }else{
-            this.food.count++;
+            this.product.count++;
           }
-          this.$dispatch('cart.add', event.target);
+          this.$emit('cart.add', event.target);
         },
         decreaseCart(event) {
           if(!event._constructed){
             return;
           }
-          if(this.food.count){
-            this.food.count--;
+          if(this.product.count){
+            this.product.count--;
           }
         }
       }
