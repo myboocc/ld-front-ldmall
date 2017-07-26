@@ -22,7 +22,7 @@
         <div class="shopcart-list" v-show="listShow">
           <div class="list-header">
             <h1 class="title">购物车</h1>
-            <span class="empty" @click="empty">清空</span>
+            <span class="empty" @click="empty"><i class="icon-close"></i></span>
           </div>
           <div class="list-content" ref="listContent">
             <ul>
@@ -47,6 +47,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import BScroll from 'better-scroll';
   import CartControl from 'components/cartcontrol/cartcontrol';
 
   export default {
@@ -133,15 +134,15 @@
 //        }
         let show = !this.fold;
         if(show){
-//          this.$nextTick(() => {
-//            if(!this.scroll){
-//              this.scroll = new BScroll(this.$els.listContent, {
-//                click: true
-//              });
-//            }else{
-//              this.scroll.refresh();
-//            }
-//          });
+          this.$nextTick(() => {
+            if(!this.scroll){
+              this.scroll = new BScroll(this.$refs.listContent, {
+                click: true
+              });
+            }else{
+              this.scroll.refresh();
+            }
+          });
         }
         return show;
       }
@@ -309,7 +310,7 @@
           color: rgb(7, 17, 27);
         .empty
           float: right;
-          font-size :12px;
+          font-size :16px;
           color: rgb(0, 160, 220);
       .list-content
         padding: 0 18px;
